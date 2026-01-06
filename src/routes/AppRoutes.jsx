@@ -1,0 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "../pages/Landing";
+import Game from "../pages/Game";
+import Result from "../pages/Result";
+
+function AppRoutes(){
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/game" element={<Game/>}/>
+        <Route path="/result" element={<Result/>}/>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default AppRoutes;

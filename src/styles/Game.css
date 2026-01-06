@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  font-family: "JetBrains Mono", monospace;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #000;
+  color: #e5e5e5;
+}
+
+.story-panel {
+  flex: 1;                  /* fill remaining vertical space */
+  overflow-y: auto;          /* allow scrolling */
+  padding: 20px 30px;
+  padding-bottom: 120px;     /* space for fixed input panel */
+  width: 100%;
+  background: #000;
+  scrollbar-width: thin;     /* Firefox scrollbar */
+}
+
+/* Custom scrollbar for Chrome/Edge/Safari */
+.story-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.story-panel::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.story-panel::-webkit-scrollbar-track {
+  background-color: #000;
+}
+
+.story-text {
+  white-space: pre-wrap;     /* preserve line breaks */
+  line-height: 1.6;
+  text-align: left;
+}
+
+.input-panel {
+  display: flex;
+  padding: 15px;
+  background: #000;
+  border-top: 1px solid #111;
+  position: fixed;           /* always stay at bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.input-panel textarea {
+  flex: 1;
+  background: #000;
+  border: 1px solid #222;
+  color: #fff;
+  padding: 12px;
+  outline: none;
+  resize: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+}
+
+.input-panel button {
+  margin-left: 10px;
+  padding: 12px 22px;
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+}
+
+.input-panel button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Chrome, Edge, Safari */
+.story-panel::-webkit-scrollbar {
+  width: 0px; /* hide scrollbar */
+  background: transparent;
+}
+
+/* Firefox */
+.story-panel {
+  scrollbar-width: none; /* hide scrollbar */
+}
+
+/* Optional: smooth scrolling for nicer effect */
+.story-panel {
+  scroll-behavior: smooth;
+}
