@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { stages } from "../data/gameData";
 import "../styles/Game.css";
 
@@ -15,6 +15,10 @@ function Game() {
   const displayRef = useRef(""); // full cumulative text
   const storyPanelRef = useRef(null);
   const typingLock = useRef(false); // prevent double typing
+
+
+  const location = useLocation();
+  const playerName = location.state?.name || "Player";
 
   const stage = stages[stageIndex];
 
@@ -43,7 +47,6 @@ function Game() {
 
   typingLock.current = false;
 };
-
 
   // Display stage intro when stageIndex changes
   useEffect(() => {
@@ -82,7 +85,12 @@ function Game() {
     if (stageIndex + 1 < stages.length) {
       setStageIndex((prev) => prev + 1);
     } else {
-      navigate("/result", { state: { finalScore: score + outcome.score } });
+      navigate("/result", {
+        state: {
+          finalScore: score + outcome.score,
+          name: playerName,
+        },
+      });
     }
   };
 

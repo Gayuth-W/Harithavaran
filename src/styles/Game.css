@@ -6,7 +6,7 @@
 body {
   margin: 0;
   background: #000;
-  overflow: hidden;
+  overflow-y: auto
 }
 
 .game-container {
