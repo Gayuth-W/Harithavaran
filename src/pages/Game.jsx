@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { stages } from "../data/gameData";
 import "../styles/Game.css";
+
 import beach1 from "../assets/beach-day1.jpg";
 import beach2 from "../assets/beach-day2.jpg";
 import beach3 from "../assets/beach-day3.jpg";
 import beach4 from "../assets/beach-day4.jpg";
-
 
 const backgrounds = {
   1: beach1,
@@ -17,50 +17,51 @@ const backgrounds = {
 
 function Game() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const playerName = location.state?.name || "Player";
 
-  const [stageIndex, setStageIndex] = useState(0); // track current stage
+  const [stageIndex, setStageIndex] = useState(0);
   const [display, setDisplay] = useState("");
   const [userInput, setUserInput] = useState("");
   const [inputEnabled, setInputEnabled] = useState(false);
   const [score, setScore] = useState(50);
 
-  const displayRef = useRef(""); // full cumulative text
+  // NEW
+  const [gameFinished, setGameFinished] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
+
+  const displayRef = useRef("");
   const storyPanelRef = useRef(null);
-  const typingLock = useRef(false); // prevent double typing
-
-
-  const location = useLocation();
-  const playerName = location.state?.name || "Player";
+  const typingLock = useRef(false);
 
   const stage = stages[stageIndex];
 
   const typeText = async (lines, speed = 25) => {
-  if (typingLock.current) return;
-  typingLock.current = true;
+    if (typingLock.current) return;
+    typingLock.current = true;
 
-  for (const line of lines) {
-    // Replace ${score} dynamically
-    const processedLine = line.replace("${score}", score);
+    for (const line of lines) {
+      const processedLine = line.replace("${score}", score);
 
-    for (const ch of processedLine) {
-      displayRef.current += ch;
+      for (const ch of processedLine) {
+        displayRef.current += ch;
+        setDisplay(displayRef.current);
+
+        await new Promise((r) => setTimeout(r, speed));
+
+        storyPanelRef.current?.scrollTo({
+          top: storyPanelRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+      displayRef.current += "\n";
       setDisplay(displayRef.current);
-      await new Promise((r) => setTimeout(r, speed));
-
-      // Auto-scroll
-      storyPanelRef.current?.scrollTo({
-        top: storyPanelRef.current.scrollHeight,
-        behavior: "smooth",
-      });
     }
-    displayRef.current += "\n";
-    setDisplay(displayRef.current);
-  }
 
-  typingLock.current = false;
-};
+    typingLock.current = false;
+  };
 
-  // Display stage intro when stageIndex changes
+  // Load stage intro
   useEffect(() => {
     setInputEnabled(false);
     (async () => {
@@ -74,66 +75,87 @@ function Game() {
 
     setInputEnabled(false);
 
-    // Display user's input
     displayRef.current += `\n👉 You: ${userInput}\n\n`;
     setDisplay(displayRef.current);
+
     const input = userInput.toLowerCase();
     setUserInput("");
 
-    // Find outcome
     const outcome =
-      stage.outcomes.find((o) => o.keywords.some((k) => input.includes(k))) ||
-      stage.fallback;
+      stage.outcomes.find((o) =>
+        o.keywords.some((k) => input.includes(k))
+      ) || stage.fallback;
 
-    setScore((prev) => prev + outcome.score);
+    const updatedScore = score + outcome.score;
+    setScore(updatedScore);
 
-    // Show outcome
     await typeText(outcome.text);
 
-    // Pause 3 seconds before next stage
-    await new Promise((r) => setTimeout(r, 3000));
+    await new Promise((r) => setTimeout(r, 1650));
 
-    // Move to next stage or go to results
     if (stageIndex + 1 < stages.length) {
       setStageIndex((prev) => prev + 1);
     } else {
-      navigate("/result", {
-        state: {
-          finalScore: score + outcome.score,
-          name: playerName,
-        },
-      });
+      // GAME COMPLETED
+      setFinalScore(updatedScore);
+      setGameFinished(true);
     }
   };
 
   return (
-<div
-  className="game-container"
-  style={{
-    backgroundImage: `
-      linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
-      url(${backgrounds[stage.id]})
-    `
-  }}
->
+    <div
+      className="game-container"
+      style={{
+        backgroundImage: `
+          linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+          url(${backgrounds[stage.id]})
+        `,
+      }}
+    >
       {/* Story Panel */}
       <div className="story-panel" ref={storyPanelRef}>
         <pre className="story-text">{display}</pre>
+
+        {/* FINAL BUTTON */}
+        {gameFinished && (
+          <div style={{ textAlign: "center", marginTop: "30px" }}>
+            <button
+              onClick={() =>
+                navigate("/result", {
+                  state: {
+                    finalScore: finalScore,
+                    name: playerName,
+                  },
+                })
+              }
+              style={{
+                marginTop: "20px",
+                padding: "14px 30px",
+                fontSize: "16px",
+                background: "#11d698",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            >
+              View Results
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* User Input Panel */}
+      {/* Input Panel */}
       <div className="input-panel">
         <textarea
           rows={2}
-          className="input-textarea"
           value={userInput}
-          disabled={!inputEnabled}
+          disabled={!inputEnabled || gameFinished}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="..."
         />
         <button
-          className="submit-button"
-          disabled={!inputEnabled || !userInput}
+          disabled={!inputEnabled || !userInput || gameFinished}
           onClick={submitAnswer}
         >
           Submit Action
