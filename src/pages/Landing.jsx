@@ -15,7 +15,7 @@ function Landing() {
   return (
     <div className="background">
       <div className="landing-content">
-        <h1>Welcome to Harithavaran 🌱</h1>
+        <h1>Welcome to EcoDate</h1>
 
         <input
           value={name}
@@ -23,7 +23,7 @@ function Landing() {
           placeholder="Enter you full name to proceed"
         />
         <div className="condition">
-          <p>*this name will be used in you certificate</p>
+          <p>this name will be appeared in you certificate</p>
         </div>
         <br /><br />
 
