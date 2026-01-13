@@ -17,11 +17,6 @@ const backgrounds = {
 
 function Game() {
 
-  useEffect(()=>{
-    if(!location.state){
-      navigate("/")
-    }
-  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,6 +27,13 @@ function Game() {
   const [userInput, setUserInput] = useState("");
   const [inputEnabled, setInputEnabled] = useState(false);
   const [score, setScore] = useState(50);
+
+  
+  useEffect(()=>{
+    if(!location.state){
+      navigate("/")
+    }
+  }, []);
 
   // NEW
   const [gameFinished, setGameFinished] = useState(false);
