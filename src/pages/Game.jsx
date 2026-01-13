@@ -45,7 +45,7 @@ function Game() {
 
   const stage = stages[stageIndex];
 
-  const typeText = async (lines, speed = 50) => {
+  const typeText = async (lines, speed = 50) => {//50
     if (typingLock.current) return;
     typingLock.current = true;
 
@@ -100,7 +100,7 @@ function Game() {
 
     await typeText(outcome.text);
 
-    await new Promise((r) => setTimeout(r, 1650));
+    await new Promise((r) => setTimeout(r, 1650));//1650
 
     if (stageIndex + 1 < stages.length) {
       setStageIndex((prev) => prev + 1);
@@ -108,6 +108,7 @@ function Game() {
       // GAME COMPLETED
       setFinalScore(updatedScore);
       setGameFinished(true);
+      sendResultToSheet(playerName, updatedScore, new Date().toLocaleDateString());
     }
   };
 
@@ -126,6 +127,25 @@ function Game() {
       ["c", "v", "x"].includes(e.key.toLowerCase())
     ) {
       e.preventDefault();
+    }
+  };
+
+  const sendResultToSheet = async (name, score, date) => {
+    try{
+    await fetch("https://script.google.com/macros/s/AKfycbyIpXDZEugjJnS_G9zRcQ0LK2eU3amVbXV8FOJtTipLOoo0QXrzcPsQo1nZPybrvVw1/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        score,
+        date
+      }),
+    });
+    }catch(err){
+      console.log(err);
     }
   };
 
