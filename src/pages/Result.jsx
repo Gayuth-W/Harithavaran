@@ -1,115 +1,71 @@
-import { useLocation, useNavigate} from "react-router-dom";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import CertificateCanvas from "../components/CertificateCanvas";
+import "./results.css"
 
 function Result() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!location.state) {
+      navigate("/");
+    }
+  }, []);
+
   const finalScore = location.state?.finalScore ?? 0;
   const name = location.state?.name ?? "Player";
 
-  const downloadCertificate = async () => {
-    const cert = document.getElementById("certificate");
+  // GENERATED ONCE
+  const serial = `HAR-${new Date().getFullYear()}-${Math.floor(
+    Math.random() * 100000
+  )}`;
+  const date = new Date().toLocaleDateString();
 
-    const canvas = await html2canvas(cert, { scale: 2 });
-    const imgData = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF("landscape");
-    pdf.addImage(imgData, "PNG", 10, 10, 280, 160);
-    pdf.save(`${name}-Harithavaran-Certificate.pdf`);
+  const downloadCertificate = () => {
+    const canvas = document.querySelector("canvas");
+    const link = document.createElement("a");
+    link.download = `${name}-Harithavaran-Certificate.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
   };
 
-  useEffect(()=>{
-    if(!location.state){
-      navigate("/")
-    }
-  }, []);
-return (
-  <div
-    style={{
-      minHeight: "100vh",
-      overflowY: "auto",
-      // padding: "-100px",
-      textAlign: "center",
-    }}
-  >
-    <h1>Game Completed 🎉</h1>
+  return (
+    <div className="detail" style={{ textAlign: "center" }}>
+      <br/>
+      <br/>
+      <h1>Game Completed 🎉</h1>
 
-    <p>Pollution Meter</p>
-    <h2>{finalScore}%</h2>
+      <p>Compatibility Meter</p>
+      <h2>{finalScore}%</h2>
+      <br/>
+      <button onClick={downloadCertificate}>
+        Download Certificate 📄
+      </button>
+      <br/>
 
-    {/* Certificate */}
-    <div
-      id="certificate"
-      style={{
-        position: "relative",
-        margin: "40px auto",
-        padding: "60px",
-        width: "900px",
-        background: "linear-gradient(135deg, #e8f5e9, #ffffff)",
-        border: "12px solid #2e7d32",
-        borderRadius: "16px",
-        textAlign: "center",
-        color: "#1b5e20",
-        fontFamily: "Poppins",
-      }}
-    >
-      {/* Watermark */}
-      <img
-        src="/logo.png"
-        alt=""
+      <button onClick={() => navigate("/")}>
+        Play Again
+      </button>
+
+
+      {/* PNG CERTIFICATE */}
+      <div
         style={{
           position: "absolute",
-          opacity: 0.08,
-          width: "400px",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          left: "-9999px",
+          top: 0,
         }}
-      />
-
-      {/* Logo */}
-      {/* <img src="/logo.png" alt="Logo" style={{ width: "100px" }} /> */}
-
-      <h1 style={{ fontFamily: "Playfair Display", fontSize: "48px" }}>
-        Certificate of Participation
-      </h1>
-
-      <p>This certifies that</p>
-
-      <h2 style={{ fontSize: "36px", margin: "20px 0" }}>
-        {name}
-      </h2>
-
-      <p>
-        has successfully completed the <strong>Harithavaran</strong>
-        <br />
-        Environmental Awareness Game
-      </p>
-
-      <p style={{ marginTop: "30px" }}>
-        Final Score: <strong>{finalScore}%</strong>
-      </p>
-
-      <p style={{ marginTop: "40px", fontSize: "14px" }}>
-        Issued on {new Date().toLocaleDateString()}
-      </p>
+      >
+        <CertificateCanvas
+          name={name}
+          score={`${finalScore}%`}
+          date={date}
+          serial={serial}
+        />
+      </div>
     </div>
-
-    <button onClick={downloadCertificate}>
-      Download Certificate 📄
-    </button>
-
-    <br /><br />
-
-    <button onClick={() => navigate("/")}>
-      Play Again
-    </button>
-  </div>
-);
-
+  );
 }
 
 export default Result;

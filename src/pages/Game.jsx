@@ -3,10 +3,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { stages } from "../data/gameData";
 import "../styles/Game.css";
 
-import beach1 from "../assets/beach-day1.jpg";
-import beach2 from "../assets/beach-day2.jpg";
-import beach3 from "../assets/beach-day3.jpg";
-import beach4 from "../assets/beach-day4.jpg";
+import beach1 from "../assets/EcoDate Mobility.png";
+import beach2 from "../assets/EcoDate food.png";
+import beach3 from "../assets/EcoDate shopping.png";
+import beach4 from "../assets/EcoDate Nature Outing.png";
 
 const backgrounds = {
   1: beach1,
@@ -45,7 +45,7 @@ function Game() {
 
   const stage = stages[stageIndex];
 
-  const typeText = async (lines, speed = 50) => {//50
+  const typeText = async (lines, speed = 1) => {//50
     if (typingLock.current) return;
     typingLock.current = true;
 

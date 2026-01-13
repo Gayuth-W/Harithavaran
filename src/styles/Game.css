@@ -16,20 +16,20 @@ body {
 .game-container {
   display: flex;
   flex-direction: column;
-  width: 100vw;                 /* full screen width */
-  height: 100vh;                /* full screen height */
+  width: 100vw;
+  height: 100vh;
   color: #ffffff;
 
-  /* BACKGROUND IMAGE + GRADIENT OVERLAY */
   background-image:
     linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
-    url("../assets/game-bg.jpg"); /* default image */
-  background-size: cover;        /* cover entire screen */
-  background-position: center;   /* center image */
+    url("../assets/game-bg.jpg");
+
+  background-size: contain;     /* 👈 KEY FIX */
+  background-position: center;
   background-repeat: no-repeat;
-  transition: background-image 0.8s ease-in-out; /* smooth stage change */
-  margin: 0;
-  padding: 0;
+  background-color: #fdbc4c;       /* prevents gray/white areas */
+
+  transition: background-image 0.8s ease-in-out;
 }
 
 /* ------------------ Story Panel ------------------ */
