@@ -108,7 +108,19 @@ function Game() {
       // GAME COMPLETED
       setFinalScore(updatedScore);
       setGameFinished(true);
-      sendResultToSheet(playerName, updatedScore, new Date().toLocaleDateString());
+    
+
+      const now = new Date();
+      const dateTime = now.toLocaleString("en-IN", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+      sendResultToSheet(playerName, updatedScore, dateTime);
     }
   };
 
