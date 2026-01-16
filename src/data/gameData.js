@@ -20,7 +20,7 @@ export const stages = [
       { keywords: ["bus", "metro", "train", "public", "carpool", "subway", "share", "auto"], score: 8, text: ["🚌✨ You hop on the bus/metro and enjoy the ride!\n\nYou arrive right on time, feeling pretty good about yourself! 😊\nYour crush smiles: \"Public transport, nice! I do the same. It's cheaper and better for the planet, right?\" 🌍\n\nSharing is caring for the environment! Your crush appreciates your practical thinking! 💚\nYou both bond over stories about funny commute experiences! 😄\n"] },
       { keywords: ["motor", "cycle", "car", "drive", "uber", "ola", "taxi", "rapido"], score: 3, text: ["🚗💨 You book a cab/drive your car to get there quickly!\n\nYou arrive super comfortable and right on time! ⏰\nYour crush notices: \"Oh, you came by car? I usually try to avoid that for short distances...\" 😅\n\nQuick and convenient, but they seem a little disappointed! 😬\nYour crush is wondering if you both share the same values... 🤔💭\n"] }
     ],
-    fallback: { score: -2, text: ["🤔 You're still deciding how to get there... but time's running out! ⏰\n\nYour crush sends another text: \"Hey, you on your way?\" 📱\nYou're gonna be late if you don't decide soon! Better pick something fast! 💨\n"] }
+    fallback: { score: -4, text: ["🤔 You're still deciding how to get there... but time's running out! ⏰\n\nYour crush sends another text: \"Hey, you on your way?\" 📱\nYou're gonna be late if you don't decide soon! Better pick something fast! 💨\n"] }
   },
 
   // -------- Stage 2 --------
@@ -44,7 +44,7 @@ export const stages = [
       { keywords: ["chicken", "fish", "meat"], score: 4, text: ["🍗🐟 You order chicken or fish – it's your favorite!\n\nYour crush raises an eyebrow slightly... 🤔\n\"Oh, you eat meat? I mean, that's cool... I've been trying to cut down though.\" 😅\n\nThere's a brief awkward pause... 😬\nYour crush is polite but you can sense they're a bit disappointed! 💭\nThe conversation continues but the energy shifted a little! ⚡\n\nNot a dealbreaker, but maybe not perfectly aligned! 🌍\n"] },
       { keywords: ["beef", "steak", "burger", "red meat"], score: 2, text: ["🍔🥩 You order the beef burger – you're craving it!\n\nYour crush's smile fades a bit... 😕\n\"Oh... beef? That's actually got the highest carbon footprint...\" They look genuinely concerned! 🌍\n\nAwkward silence for a moment... 😬\nYour crush tries to change the subject but seems less enthusiastic now! 💔\nYou can tell this matters a lot to them! 💭\n\nYikes... maybe you should've checked their vibe first! 🙈\n"] }
     ],
-    fallback: { score: -2, text: ["🤔 You're staring at the menu, overwhelmed by choices!\n\nYour crush giggles: \"Take your time! But I'm starving!\" 😄\nThe waiter is waiting... you better decide soon! ⏰\n"] }
+    fallback: { score: -4, text: ["🤔 You're staring at the menu, overwhelmed by choices!\n\nYour crush giggles: \"Take your time! But I'm starving!\" 😄\nThe waiter is waiting... you better decide soon! ⏰\n"] }
   },
 
   // -------- Stage 3 --------
@@ -69,7 +69,7 @@ export const stages = [
       { keywords: ["sustainable", "organic", "eco", "ethical"], score: 8, text: ["🌿👕 You head toward the sustainable/organic brand section!\n\nYour crush smiles: \"I shop from eco-brands too! Quality over quantity, right?\" 😊\n\nYou both check out the organic cotton tees and bamboo accessories! 👕\nYour crush insists on getting you something from the collection! 💚\nThe conversation flows about ethical fashion and conscious choices! ✨\n\nYour crush seems impressed but maybe hoped you'd go even greener! 🌱\nStill, you're definitely compatible! The vibe is really good! 💕\n"] },
       { keywords: ["fast", "zara", "h&m", "trendy", "brand"], score: 3, text: ["👗⚡ You naturally walk toward the fast fashion section with trendy pieces!\n\nYour crush follows but seems hesitant... 😕\n\"Oh, you like fast fashion? I used to, but... the environmental impact is pretty intense.\" 🌍\n\nAwkward energy fills the air... 😬\nThey still offer to buy you something but without the earlier enthusiasm! 💔\nYou notice they're checking price tags and labels more carefully now! 👀\n\nThe conversation becomes a bit forced... 💭\nMaybe you two aren't as aligned as you thought? 🙈\n"] }
     ],
-    fallback: { score: -2, text: ["🤔 You're overwhelmed by all the options and can't decide!\n\nYour crush laughs: \"Take your time! I want it to be something you'll actually love!\" 😊\nBut you can see they're curious about what you'll choose! 👀\n"] }
+    fallback: { score: -4, text: ["🤔 You're overwhelmed by all the options and can't decide!\n\nYour crush laughs: \"Take your time! I want it to be something you'll actually love!\" 😊\nBut you can see they're curious about what you'll choose! 👀\n"] }
   },
 
   // -------- Stage 4 --------
@@ -94,6 +94,6 @@ export const stages = [
       { keywords: ["flight", "domestic", "india", "short"], score: 5, text: ["✈️🇮🇳 \"Maybe we could fly somewhere within India? Like Goa or Kerala?\" you suggest!\n\nYour crush's excitement fades a little... 😕\n\"Oh... I try to avoid flying when possible. The carbon emissions are pretty high...\" 🌍\n\nAwkward pause... you can feel the energy shift! 😬\nYour crush suggests: \"What if we take a train there instead? It'll be an adventure!\" 🚂\nThey're trying to find middle ground but seem a bit disappointed! 💭\n\nYou're not perfectly aligned, but they're willing to compromise! 💚\nMaybe you need to learn more about sustainable travel together? 🌱\n"] },
       { keywords: ["international", "abroad", "foreign", "overseas"], score: 2, text: ["✈️🌏 \"Let's go international! Europe or Bali!\" you say excitedly!\n\nYour crush's face falls... 😟\n\"International flights? That's... that's a huge carbon footprint. I can't do that.\" 🌍\n\nThe mood suddenly gets heavy... 💔\nYour crush looks genuinely upset: \"I thought we were on the same page about this stuff...\" 😢\nThere's a long, uncomfortable silence! 😬\n\nThey stand up, clearly conflicted! 💭\n\"Maybe we should think about what we really want...\" they say quietly! 🙈\n\nThis might be a dealbreaker... your values don't align! 💔🌍\n"] }
     ],
-    fallback: { score: -2, text: ["🤔 \"I'm not sure... I've never really thought about it!\" you admit!\n\nYour crush looks a bit concerned... 😕\n\"Really? You don't have any preference?\" They seem to want you to care more! 💭\nMaybe you should think about what matters to you? 🌍\n"] }
+    fallback: { score: -4, text: ["🤔 \"I'm not sure... I've never really thought about it!\" you admit!\n\nYour crush looks a bit concerned... 😕\n\"Really? You don't have any preference?\" They seem to want you to care more! 💭\nMaybe you should think about what matters to you? 🌍\n"] }
   }
 ];
