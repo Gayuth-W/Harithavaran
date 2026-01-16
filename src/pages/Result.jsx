@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CertificateCanvas from "../components/CertificateCanvas";
-import "./results.css"
+import "../styles/results.css"
 
 function Result() {
   const location = useLocation();
@@ -16,7 +16,6 @@ function Result() {
   const finalScore = location.state?.finalScore ?? 0;
   const name = location.state?.name ?? "Player";
 
-  // GENERATED ONCE
   const serial = `${new Date().getFullYear()}-${Math.floor(
     Math.random() * 100000
   )}`;
@@ -54,7 +53,6 @@ function Result() {
       </button>
 
 
-      {/* PNG CERTIFICATE */}
       <div
         style={{
           position: "absolute",

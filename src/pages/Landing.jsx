@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./Background.css";
+import "../styles/Background.css";
 import "../styles/Landing.css";
 
 function Landing() {
@@ -29,14 +29,13 @@ function Landing() {
           onChange={handleNameChange}
           placeholder="Enter your full name"
           className="text"
-          maxLength={31} // allows warning to trigger
+          maxLength={31}
         />
 
         <div className="condition">
           <p>This name will appear on your certificate</p>
         </div>
 
-        {/* WARNING */}
         {nameError && (
           <p className="name-warning">
             ⚠️ Name cannot exceed 30 characters
@@ -45,7 +44,6 @@ function Landing() {
 
         <br />
 
-        {/* START BUTTON (hidden when invalid) */}
         {!nameError && name.trim() && (
           <button onClick={startGame}>Start Game</button>
         )}

@@ -3,16 +3,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { stages } from "../data/gameData";
 import "../styles/Game.css";
 
-import beach1 from "../assets/EcoDate Mobility.png";
-import beach2 from "../assets/EcoDate food.png";
-import beach3 from "../assets/EcoDate shopping.png";
-import beach4 from "../assets/EcoDate Nature Outing.png";
+import stage1 from "../assets/EcoDate Mobility.png";
+import stage2 from "../assets/EcoDate food.png";
+import stage3 from "../assets/EcoDate shopping.png";
+import stage4 from "../assets/EcoDate Nature Outing.png";
 
 const backgrounds = {
-  1: beach1,
-  2: beach2,
-  3: beach3,
-  4: beach4,
+  1: stage1,
+  2: stage2,
+  3: stage3,
+  4: stage4,
 };
 
 function Game() {
@@ -35,7 +35,6 @@ function Game() {
     }
   }, []);
 
-  // NEW
   const [gameFinished, setGameFinished] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
@@ -45,7 +44,7 @@ function Game() {
 
   const stage = stages[stageIndex];
 
-  const typeText = async (lines, speed = 50) => {//50
+  const typeText = async (lines, speed = 1) => {//50
     if (typingLock.current) return;
     typingLock.current = true;
 
@@ -70,7 +69,6 @@ function Game() {
     typingLock.current = false;
   };
 
-  // Load stage intro
   useEffect(() => {
     setInputEnabled(false);
     (async () => {
@@ -125,15 +123,13 @@ function Game() {
   };
 
   const handleKeyDown = (e) => {
-    // ENTER → submit
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault(); // prevent new line
+      e.preventDefault();
       if (inputEnabled && userInput.trim() && !gameFinished) {
         submitAnswer();
       }
     }
 
-    // Block copy / paste / cut shortcuts
     if (
       (e.ctrlKey || e.metaKey) &&
       ["c", "v", "x"].includes(e.key.toLowerCase())
@@ -144,7 +140,7 @@ function Game() {
 
   const sendResultToSheet = async (name, score, date) => {
     try{
-    await fetch("https://script.google.com/macros/s/AKfycbyIpXDZEugjJnS_G9zRcQ0LK2eU3amVbXV8FOJtTipLOoo0QXrzcPsQo1nZPybrvVw1/exec", {
+    await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
       headers: {
@@ -171,11 +167,9 @@ function Game() {
         `,
       }}
     >
-      {/* Story Panel */}
       <div className="story-panel" ref={storyPanelRef}>
         <pre className="story-text">{display}</pre>
 
-        {/* FINAL BUTTON */}
         {gameFinished && (
           <div style={{ textAlign: "center", marginTop: "30px" }}>
             <button
@@ -204,7 +198,6 @@ function Game() {
         )}
       </div>
 
-      {/* Input Panel */}
       <div className="input-panel">
         <textarea
           rows={2}
